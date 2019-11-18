@@ -9,6 +9,10 @@ pipeline {
     }
 
     stage('stage2') {
+      agent any
+      environment {
+        para1 = '1'
+      }
       steps {
         waitUntil() {
           sh 'python2.7 --version'
