@@ -65,4 +65,10 @@ echo \'Testing Done\''''
   environment {
     testenv = 'testvalue'
   }
+  
+  post {
+    success {
+       echo 'sucess' 
+    }
+  }
 }
