@@ -1,25 +1,41 @@
 pipeline {
-  agent any
+  agent {
+    node {
+      label 'vueclient'
+    }
+
+  }
   stages {
-    stage('stage1') {
+    stage('Prepare') {
       steps {
-        pwd(tmp: true)
-        fileExists '/tmp/test'
+        sh 'cd /data/web/jv-awesome && sudo git stash'
       }
     }
 
-    stage('stage2') {
+    stage('Git Pull') {
       agent any
       environment {
         para1 = '1'
       }
       steps {
-        waitUntil() {
-          sh 'python2.7 --version'
-        }
-
+        sh 'cd /data/web/jv-awesome  && sudo git pull'
       }
     }
 
+    stage('Build') {
+      steps {
+        sh 'cd /data/web/jv-awesome && sudo tnpm i --needlock && sudo tnpm run build'
+      }
+    }
+
+    stage('Send Msg') {
+      steps {
+        echo 'Job Done'
+      }
+    }
+
+  }
+  environment {
+    testenv = 'testvalue'
   }
 }
