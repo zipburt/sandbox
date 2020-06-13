@@ -48,7 +48,7 @@ pipeline {
     stage('Test') {
       agent {
         node {
-          label 'vueclient'
+          label 'master'
         }
 
       }
