@@ -7,8 +7,19 @@ pipeline {
   }
   stages {
     stage('Prepare') {
-      steps {
-        sh 'cd /data/web/jv-awesome && sudo git stash'
+      parallel {
+        stage('Prepare') {
+          steps {
+            sh 'cd /data/web/jv-awesome && sudo git stash'
+          }
+        }
+
+        stage('Echo Message') {
+          steps {
+            echo 'Build Start'
+          }
+        }
+
       }
     }
 
