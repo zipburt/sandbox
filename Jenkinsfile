@@ -45,6 +45,22 @@ pipeline {
       }
     }
 
+    stage('Test') {
+      agent {
+        node {
+          label 'vueclient'
+        }
+
+      }
+      environment {
+        CI = 'true'
+      }
+      steps {
+        sh '''echo \'Testing\'
+echo \'Testing Done\''''
+      }
+    }
+
   }
   environment {
     testenv = 'testvalue'
